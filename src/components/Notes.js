@@ -12,6 +12,8 @@ import NotesPagination from './NotesPagination';
 import { Button } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import { async } from '@firebase/util';
+import NotesPinnedList from './NotesPinnedList';
+import NotesForm from './NotesForm';
 function Notes(props) {
     const [notesTitle, setNotesTitle] = useState("");
     const [notesTagline, setNotesTagline] = useState("");
@@ -116,24 +118,18 @@ function Notes(props) {
                 {pinnnedList.map((item, id) => {
                     return (
                         <>
-                            <Card key={id} onClick={() => {
-                                setIsDialog2(true)
-                            }} className='notes-list'>
-                                <h1>{item.title}</h1>
-                                <hr />
-                                <p>{item.tagline}</p>
-                                <div className='item-body'>
-                                    <p >{item.body}</p>
-                                </div>
-                                <button className='pin-btn' onClick={(e) => {
-                                    e.stopPropagation()
-                                    pinnnedList.splice(id, 1);
-                                    setNotesArray((prev) => [...prev, { body: item.body, title: item.title, tagline: item.tagline }])
-                                }}>
-                                    < img className="icon-img" src={`${pinIcon}`} alt="delete-img"></img>
 
-                                </button>
-                            </Card>
+                            <NotesPinnedList
+                                id={id}
+                                setIsDialog2={setIsDialog2}
+                                item_title={item.title}
+                                item_body={item.body}
+                                item_tagline={item.tagline}
+                                setNotesArray={setNotesArray}
+                                pinnnedList={pinnnedList}
+                            ></NotesPinnedList>
+
+
                         </>
                     )
                 })}
@@ -156,15 +152,16 @@ function Notes(props) {
 
             {
                 isDisplayForm &&
-                <form onSubmit={createNote}>
 
-                    <span className='notes-form'>
-                        <input required placeholder='Enter Note Title..' value={notesTitle} type="text" className='notes-input' onChange={(e) => { setNotesTitle(e.target.value) }}></input>
-                        <textarea required placeholder='Take Note..' value={notesBody} style={{ height: "200px" }} type="text" className='notes-input' onChange={(e) => { setNotesBody(e.target.value) }}></textarea>
-                        <input required placeholder='Enter A tag Line..' value={notesTagline} type="text" className='notes-input' onChange={(e) => { setNotesTagline(e.target.value) }} ></input>
-                        <button className='create-notes'>Create Note </button>
-                    </span>
-                </form>
+                <NotesForm
+                    createNote={createNote}
+                    notesTitle={notesTitle}
+                    setNotesTitle={setNotesTitle}
+                    notesBody={notesBody}
+                    notesTagline={notesTagline}
+                    setNotesBody={setNotesBody}
+                    setNotesTagline={setNotesTagline}
+                ></NotesForm>
             }
 
             <div className='notes-container'>
@@ -196,7 +193,9 @@ function Notes(props) {
 
                                         }
                                     }>< img className="icon-img" src={`${pinIcon}`} alt="delete-img"></img></button>
-                                    <button className='delete-btn' onClick={() => {
+                                    <button className='delete-btn' onClick={(e) => {
+                                        e.stopPropagation()
+
                                         DeleteNote(item.id)
                                     }}>< img className="icon-img" src={`${deleteIcon}`} alt="delete-img"></img></button>
                                 </div>

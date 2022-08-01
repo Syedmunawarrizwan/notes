@@ -1,0 +1,32 @@
+.notes-list {
+  width: 350px;
+  /* height: 300px; */
+  background-color: #fef68a;
+  border-radius: 5px;
+  color: #020e24;
+  padding-left: 20px;
+  transition: width 2s, height 2s transform 2s;
+  box-shadow: 10px 5px 5px;
+}
+.notes-list:hover {
+  transition: 1s;
+  transform: translateY(-30px);
+  /* transform: rotate(180deg); */
+  background-color: #ffef96;
+}
+.item-body {
+  word-wrap: break-word;
+  max-width: 300px;
+}
+.pin-btn {
+  background-color: white;
+  border: 1px solid white;
+}
+.pin-btn:hover {
+  background-color: #ffef96;
+  transition: 1s;
+}
+.icon-img {
+  width: 30px;
+  height: 30px;
+}

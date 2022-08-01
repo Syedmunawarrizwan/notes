@@ -64,7 +64,7 @@
 }
 .notes-list {
   width: 350px;
-  height: 300px;
+  /* height: 300px; */
   background-color: #fef68a;
   border-radius: 5px;
   color: #020e24;
